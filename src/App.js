@@ -3,12 +3,18 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import Login from './components/login/login';
+import Register from './components/register/register';
+import Logout from './components/logout/logout';
+import Navbar from './components/navbar/navbar';
+import Home from './components/home/home';
+
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      user: null
+      user: null,
     };
   }
 
@@ -40,14 +46,18 @@ class App extends Component {
         <Switch>
 
           <Route exact path ="/" component={Home} />
-          
+
 
           <Route path="/login" component={Login} />
 
 
           <Route path="/register" component={Register} />
 
+
+          <Route path="/logout" component={Logout} />
+
         </Switch>
+
       </Router>
     )
   }

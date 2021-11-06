@@ -12,7 +12,7 @@ export default function NewUser () {
 
     async function register(values) {
         console.log(values);
-        const response = await axios.post("https://localhost:44394/api/authentication", values);
+        const response = await axios.post("http://localhost:8000/api/auth/register/", values);
         if (response.data) {
             setData(response);
         }
