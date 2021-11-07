@@ -8,13 +8,13 @@ import NewUser from '../../hooks/newUser';
 
 const Register = () => {
     const history = useHistory();
-    const [error, setError] = useState("");
+    const [error, setError] = useState('');
     const { register, userInfo } = NewUser();
     const send = useLogin();
     const sendRegistration = () => {
         console.log(formValues);
         register(formValues);
-        history.push("/login");
+        history.push('');
     }
     const { formValues, handleChange, handleSubmit } = useForm(sendRegistration);
 

@@ -8,7 +8,7 @@ import Register from './components/register/register';
 import Logout from './components/logout/logout';
 import Navbar from './components/navbar/navbar';
 import Home from './components/home/home';
-
+import EditProfile from './components/editProfile/editProfile';
 
 class App extends Component {
   constructor(props){
@@ -41,23 +41,14 @@ class App extends Component {
   render(){
     return (
       <Router>
-        <Navbar user={this.state.user}/>
-        
+        <Navbar user={this.state.user}/>  
         <Switch>
-
           <Route exact path ="/" component={Home} />
-
-
           <Route path="/login" component={Login} />
-
-
           <Route path="/register" component={Register} />
-
-
           <Route path="/logout" component={Logout} />
-
+          <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} />} />
         </Switch>
-
       </Router>
     )
   }
