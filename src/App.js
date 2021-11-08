@@ -9,6 +9,7 @@ import Logout from './components/logout/logout';
 import Navbar from './components/navbar/navbar';
 import Home from './components/home/home';
 import EditProfile from './components/editProfile/editProfile';
+import PaintballChat from './components/chat/chat';
 
 class App extends Component {
   constructor(props){
@@ -48,6 +49,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/logout" component={Logout} />
           <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} />} />
+          <Route path="/chat" component={PaintballChat} />
         </Switch>
       </Router>
     )
