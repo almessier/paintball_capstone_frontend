@@ -10,12 +10,14 @@ import Navbar from './components/navbar/navbar';
 import Home from './components/home/home';
 import EditProfile from './components/editProfile/editProfile';
 import PaintballChat from './components/chat/chat';
+import ViewListings from './components/viewListings/viewListings';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       user: null,
+      loggedInUser: null
     };
   }
 
@@ -26,6 +28,19 @@ class App extends Component {
       this.setState({user});
     } catch (ex){
       console.log('Error in setting user', ex)
+    }
+  }
+
+  setLoggedInUser = async (userId) => {
+    try{
+      let response = await axios.get(`http://localhost:8000/api/auth/get/${userId}/`)
+      this.setState({
+        loggedInUser: response.data
+      })
+    }
+        
+    catch(ex){
+        console.log('Error in setLoggedInUser API call', ex)
     }
   }
 
@@ -44,12 +59,13 @@ class App extends Component {
       <Router>
         <Navbar user={this.state.user}/>  
         <Switch>
-          <Route exact path ="/" component={Home} />
+          <Route exact path ="/" render={props => <Home {...props} user={this.state.user} setLoggedInUser={this.setLoggedInUser} />} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/logout" component={Logout} />
           <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} />} />
           <Route path="/chat" component={PaintballChat} />
+          <Route path="/viewListings" component={ViewListings} />
         </Switch>
       </Router>
     )

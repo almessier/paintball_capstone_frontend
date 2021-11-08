@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+#api
+/src/components/chat/chatApiKeys.jsx
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

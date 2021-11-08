@@ -5,11 +5,17 @@ import useForm from '../../hooks/useForm';
 import useLogin from '../../hooks/useLogin'
 import './login.css';
 
-const Login = () => {
+const Login = (props) => {
+
     const history = useHistory();
     const send = useLogin();
     
     const { formValues, handleChange, handleSubmit } = useForm(() => login(formValues, send, history));
+
+    const login = (values, send, history) => {
+        send(values);
+        history.push("/");
+    }
 
     return (
         <div className='body'>
@@ -30,9 +36,3 @@ const Login = () => {
 }
 
 export default Login;
-
-function login(values, send, history) {
-        send(values);
-        history.push("/");
-}
-

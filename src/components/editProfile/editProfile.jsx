@@ -43,7 +43,7 @@ const EditProfile = (props) => {
                     <div className ="user-details">
                         <div className="input-box">
                             <span className="details">Username</span>
-                            <input type='text' name='username' value={formValues.username} defaultValue={props.user.username} onChange={handleChange}/>
+                            <input type='text' name='username' value={formValues.username} defaultValue="test" onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">First Name</span>

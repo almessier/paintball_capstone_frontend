@@ -43,15 +43,20 @@ const Navbar = ({user}) => {
                                     {user &&
                                         <React.Fragment>
                                             <li className="nav-item">
+                                                <NavLink className="nav-link" to="/viewListings">
+                                                    View Listings
+                                                </NavLink>
+                                            </li>
+                                            <li className="nav-item">
                                                 <NavLink className="nav-link" to="/chat">
                                                     Chat
                                                 </NavLink>
-                                            </li>        
+                                            </li>
                                             <li className="nav-item">
                                                 <NavLink className="nav-link" to="/editProfile">
                                                     Edit Profile
                                                 </NavLink>
-                                            </li>                                            
+                                            </li>
                                             <li className="nav-item">
                                                 <NavLink className="nav-link" to="/logout">
                                                     Logout
