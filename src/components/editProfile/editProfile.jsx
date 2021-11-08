@@ -43,27 +43,27 @@ const EditProfile = (props) => {
                     <div className ="user-details">
                         <div className="input-box">
                             <span className="details">Username</span>
-                            <input type='text' name='username' value={formValues.username} defaultValue="test" onChange={handleChange}/>
+                            <input type='text' name='username' value={formValues.username} defaultValue={props.loggedInUser.username} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">First Name</span>
-                            <input type='text' name='firstName' value={formValues.firstName} defaultValue={props.user.firstName} onChange={handleChange}/>
+                            <input type='text' name='firstName' value={formValues.firstName} defaultValue={props.loggedInUser.first_name} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Last Name</span>
-                            <input type='text' name='lastName' value={formValues.lastName} defaultValue={props.user.lastName} onChange={handleChange}/>
+                            <input type='text' name='lastName' value={formValues.lastName} defaultValue={props.loggedInUser.last_name} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Email</span>
-                            <input type='text' name='email' value={formValues.email} defaultValue={props.user.email} onChange={handleChange}/>
+                            <input type='text' name='email' value={formValues.email} defaultValue={props.loggedInUser.email} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Address</span>
-                            <input type='text' name='address' value={formValues.address} defaultValue={props.user.address} onChange={handleChange}/>
+                            <input type='text' name='address' value={formValues.address} defaultValue={props.loggedInUser.address} onChange={handleChange}/>
                         </div>
                         <div className="input-box">
                             <span className="details">Phone Number</span>
-                            <input type='text' name='phoneNumber' value={formValues.phoneNumber} defaultValue={props.user.phone_number} onChange={handleChange}/>
+                            <input type='text' name='phoneNumber' value={formValues.phoneNumber} defaultValue={props.loggedInUser.phone_number} onChange={handleChange}/>
                         </div>
                         <button className="button" type="submit">Submit</button>
                     </div>

@@ -63,7 +63,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/logout" component={Logout} />
-          <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} />} />
+          <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/chat" component={PaintballChat} />
           <Route path="/viewListings" component={ViewListings} />
         </Switch>

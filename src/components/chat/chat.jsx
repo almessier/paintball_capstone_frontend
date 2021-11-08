@@ -4,8 +4,9 @@ import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window
 
 import 'stream-chat-react/dist/css/index.css';
 
-
-const chatClient = StreamChat.getInstance('4szznm8xu2ar');
+const chatApiKey = `${process.env.REACT_APP_CHAT_API_KEY}`
+const chatSecretApiKey = `${process.env.REACT_APP_CHAT_SECRET_API_KEY}`
+const chatClient = StreamChat.getInstance(chatApiKey);
 const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoibG9uZy1tdWQtNiJ9.UOc65ZamD66nWK-yiljmtbYydV-XiK8t3BA1PlufJD0';
 
 chatClient.connectUser(
@@ -24,7 +25,7 @@ const channel = chatClient.channel('messaging', 'custom_channel_id', {
   members: ['long-mud-6'],
 });
 
-const App = () => (
+const PaintballChat = () => (
   <Chat client={chatClient} theme='messaging dark'>
     <Channel channel={channel}>
       <Window>
@@ -37,4 +38,4 @@ const App = () => (
   </Chat>
 );
 
-export default App;
+export default PaintballChat;
