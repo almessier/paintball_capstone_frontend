@@ -12,13 +12,15 @@ import Home from './components/home/home';
 import EditProfile from './components/editProfile/editProfile';
 import PaintballChat from './components/chat/chat';
 import ViewListings from './components/viewListings/viewListings';
+import ViewListing from './components/viewListings/viewListings';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       user: null,
-      loggedInUser: null
+      loggedInUser: null,
+      listedUsers: []
     };
   }
 
@@ -60,6 +62,12 @@ class App extends Component {
     );
   }
 
+  setListedUsers = async (listedUsers) => {
+    this.setState({
+      listedUsers: listedUsers
+    })
+  }
+
   updateUsersLatLng = async (userId, lat, lng) => {
     try{
       let updatedProfile = {
@@ -96,7 +104,7 @@ class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/chat" component={PaintballChat} />
-          <Route path="/viewListings" component={ViewListings} />
+          <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} setListedUsers={this.setListedUsers} listedUsers={this.state.listedUsers} />} />
         </Switch>
       </Router>
     )

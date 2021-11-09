@@ -23,21 +23,27 @@ const options = {
     zoomControl: true
 }
 
-const getListed = async () => {
-    try{
-        let response = await axios.get(`http://localhost:8000/api/auth/getalllisted/`)
-        let listed = response.data
-        return listed
-    }
-          
-    catch(ex){
-        console.log('Error in getListed API call', ex)
-    }
-}
 
-function ViewListing() {
 
-    const listed = getListed();
+function ViewListing(props) {
+
+    useEffect(()=> {
+        getListed();
+    }, [])
+
+    const getListed = async () => {
+        try{
+            let response = await axios.get(`http://localhost:8000/api/auth/getalllisted/`)
+            let listedUsers = response.data;
+            props.setListedUsers(listedUsers);
+        }
+              
+        catch(ex){
+            console.log('Error in getListed API call', ex)
+        }
+    }
+
+    // const listed = getListed();
     
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
@@ -50,9 +56,9 @@ function ViewListing() {
     return (
         <div>
             <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} option={options}>
-                {/* {listed.map(listing => {
-                    return <Marker position={{lat: listing.lat, lng: listing.lng}}/>
-                })} */}
+                {props.listedUsers.map(listedUser => {
+                    return <Marker position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}/>
+                })}
             </GoogleMap>
         </div>
     )
