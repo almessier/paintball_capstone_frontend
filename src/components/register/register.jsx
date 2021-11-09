@@ -56,6 +56,10 @@ const Register = () => {
                     <label htmlFor="phoneInput" className="form-label">Phone</label>
                     <input type="phone" name="phonenumber" value={formValues.phonenumber} onChange={handleChange} className="form-control" id="phoneInput" />
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="addressInput" className="form-label">Address</label>
+                    <input type="text" name="address" value={formValues.address} onChange={handleChange} className="form-control" id="addressInput" />
+                </div>
                 <button type="submit" className="login-button">Submit</button>
             </form>
         </div>

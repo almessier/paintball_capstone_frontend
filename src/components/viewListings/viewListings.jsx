@@ -1,8 +1,12 @@
 
-import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import React, { useState, useEffect } from 'react'
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import Geocode from 'react-geocode';
+import axios from 'axios';
+            
+Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
 
-const containerStyle = {
+const mapContainerStyle = {
   width: '1200px',
   height: '700px'
 };
@@ -12,38 +16,46 @@ const center = {
   lng: -87.905930
 };
 
-function ViewListing() {
-  const apiMapsKey = `${process.env.REACT_APP_MAPS_API_KEY}`
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: apiMapsKey
-  })
+const libraries = ['places']
 
-  const [map, setMap] = React.useState(null)
-
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
-
-  return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        defaultCenter={center}
-        center={center}
-        zoom={14}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        
-        <></>
-      </GoogleMap>
-  ) : <></>
+const options = {
+    disableDefaultUI: true,
+    zoomControl: true
 }
 
-export default React.memo(ViewListing)
+const getListed = async () => {
+    try{
+        let response = await axios.get(`http://localhost:8000/api/auth/getalllisted/`)
+        let listed = response.data
+        return listed
+    }
+          
+    catch(ex){
+        console.log('Error in getListed API call', ex)
+    }
+}
+
+function ViewListing() {
+
+    const listed = getListed();
+    
+    const {isLoaded, loadError} = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+        libraries
+    })
+
+    if (loadError) return 'Error loading'
+    if (!isLoaded) return 'Loading'
+
+    return (
+        <div>
+            <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} option={options}>
+                {/* {listed.map(listing => {
+                    return <Marker position={{lat: listing.lat, lng: listing.lng}}/>
+                })} */}
+            </GoogleMap>
+        </div>
+    )
+}
+
+export default ViewListing

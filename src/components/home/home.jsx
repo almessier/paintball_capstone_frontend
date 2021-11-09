@@ -5,7 +5,7 @@ const Home = (props) => {
 
     useEffect(() =>{
         if (props.user != null) {
-            props.setLoggedInUser(props.user.user_id)
+            props.setLoggedInUser(props.user.user_id);
         }
     }, [props.user]);
 

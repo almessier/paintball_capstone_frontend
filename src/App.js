@@ -2,6 +2,7 @@ import './App.css';
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
+import Geocode from 'react-geocode';
 import axios from 'axios';
 import Login from './components/login/login';
 import Register from './components/register/register';
@@ -36,11 +37,41 @@ class App extends Component {
       let response = await axios.get(`http://localhost:8000/api/auth/get/${userId}/`)
       this.setState({
         loggedInUser: response.data
+      }, ()=> {
+        this.updateLatLng(this.state.loggedInUser, userId);
       })
     }
         
     catch(ex){
         console.log('Error in setLoggedInUser API call', ex)
+    }
+  }
+
+  updateLatLng = (loggedInUser, userId) => {
+    Geocode.fromAddress(loggedInUser.address).then(
+      (response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.updateUsersLatLng(userId, lat, lng);
+        console.log(lat, lng);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  updateUsersLatLng = async (userId, lat, lng) => {
+    try{
+      let updatedProfile = {
+        lat: lat,
+        lng: lng
+      };
+      // const jwt = localStorage.getItem('token');
+      await axios.put(`http://localhost:8000/api/auth/put/${userId}/`, updatedProfile)//, updatedProfile, { headers: {Authorization: 'Bearer ' + jwt}});
+    }
+        
+    catch(ex){
+      console.log('Error in updateUsersLatLng API call', ex)
     }
   }
 
