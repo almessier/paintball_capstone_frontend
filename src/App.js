@@ -11,8 +11,10 @@ import Navbar from './components/navbar/navbar';
 import Home from './components/home/home';
 import EditProfile from './components/editProfile/editProfile';
 import PaintballChat from './components/chat/chat';
-import ViewListings from './components/viewListings/viewListings';
+import CreateListing from './components/createListing/createListing';
 import ViewListing from './components/viewListings/viewListings';
+
+Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
 
 class App extends Component {
   constructor(props){
@@ -105,6 +107,7 @@ class App extends Component {
           <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/chat" component={PaintballChat} />
           <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} setListedUsers={this.setListedUsers} listedUsers={this.state.listedUsers} />} />
+          <Route path="/createListing" render={props => <CreateListing {...props} user={this.state.user} />} />
         </Switch>
       </Router>
     )

@@ -1,10 +1,9 @@
 
 import React, { useState, useEffect } from 'react'
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import Geocode from 'react-geocode';
 import axios from 'axios';
-            
-Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
+import { useHistory } from "react-router-dom";
+
 
 const mapContainerStyle = {
   width: '1200px',
@@ -23,13 +22,13 @@ const options = {
     zoomControl: true
 }
 
-
-
 function ViewListing(props) {
 
     useEffect(()=> {
         getListed();
     }, [])
+
+    const history = useHistory();
 
     const getListed = async () => {
         try{
@@ -43,12 +42,16 @@ function ViewListing(props) {
         }
     }
 
-    // const listed = getListed();
-    
+    const goToCreatePage = () => {
+        history.push('/createListing')
+    }
+
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
         libraries
     })
+
+    const [selected, setSelected] = useState(null);
 
     if (loadError) return 'Error loading'
     if (!isLoaded) return 'Loading'
@@ -57,9 +60,17 @@ function ViewListing(props) {
         <div>
             <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} option={options}>
                 {props.listedUsers.map(listedUser => {
-                    return <Marker position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}/>
+                    return(
+                        <Marker 
+                            position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}
+                            onClick={() => {
+                                setSelected(listedUser);
+                            }}
+                        />
+                    ) 
                 })}
             </GoogleMap>
+            <button onClick={event => goToCreatePage()}>Create Listing</button>
         </div>
     )
 }

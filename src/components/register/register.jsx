@@ -34,11 +34,11 @@ const Register = () => {
                 <h1>{error}</h1>
                 <div className="mb-3">
                     <label htmlFor="firstnameInput" className="form-label">First Name</label>
-                    <input type="text" name="firstname" value={formValues.firstname} onChange={handleChange} className="form-control" id="firstnameInput" />
+                    <input type="text" name="first_name" value={formValues.first_name} onChange={handleChange} className="form-control" id="firstnameInput" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="lastnameInput" className="form-label">Last Name</label>
-                    <input type="text" name="lastname" value={formValues.lastname} onChange={handleChange} className="form-control" id="lastnameInput" />
+                    <input type="text" name="last_name" value={formValues.last_name} onChange={handleChange} className="form-control" id="lastnameInput" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="usernameInput" className="form-label">Username</label>
@@ -54,7 +54,7 @@ const Register = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="phoneInput" className="form-label">Phone</label>
-                    <input type="phone" name="phonenumber" value={formValues.phonenumber} onChange={handleChange} className="form-control" id="phoneInput" />
+                    <input type="phone" name="phone_number" value={formValues.phone_number} onChange={handleChange} className="form-control" id="phoneInput" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="addressInput" className="form-label">Address</label>

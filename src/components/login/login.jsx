@@ -5,7 +5,7 @@ import useForm from '../../hooks/useForm';
 import useLogin from '../../hooks/useLogin'
 import './login.css';
 
-const Login = (props) => {
+const Login = () => {
 
     const history = useHistory();
     const send = useLogin();
