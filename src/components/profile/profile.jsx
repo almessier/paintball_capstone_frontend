@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.css"
 import axios from 'axios';
 import useForm from '../../hooks/useForm';
@@ -10,6 +10,10 @@ const Profile = (props) => {
     const { formValues, handleChange, handleSubmit } = useForm(submitReview)
     const history = useHistory();
 
+    useEffect(()=>{
+        getReviews();
+    }, [])
+
     function submitReview(){
         let review = {
             user: props.listedUser.id,
@@ -17,6 +21,16 @@ const Profile = (props) => {
             rating: parseInt(formValues.rating)
         }
         createReview(review);
+    }
+
+    const getReviews = async () => {
+        try{
+            let response = await axios.get(`http://localhost:8000/api/paintball/reviews/getall/${props.listedUser.id}/`);
+            props.setReviews(response.data)
+        }
+        catch (ex){
+            console.log('Error in getReviews API call', ex);
+        }
     }
 
     const createReview = async (review) => {
@@ -27,7 +41,7 @@ const Profile = (props) => {
         }
             
         catch(ex){
-            console.log('Error in createListing API call', ex)
+            console.log('Error in createReview API call', ex)
         }
     }
     
@@ -66,6 +80,16 @@ const Profile = (props) => {
                         <button className="button" type="submit">Submit</button>
                     </div>
                 </form>
+            </div>
+            <div>
+                {props.reviews.map(review =>{
+                    return (
+                        <>
+                            {review.content}
+                            {review.rating}
+                        </>
+                    )
+                })}
             </div>
         </div>
     );

@@ -24,7 +24,8 @@ class App extends Component {
       user: null,
       loggedInUser: null,
       listedUsers: [],
-      listedUser: null
+      listedUser: null,
+      reviews: []
     };
   }
 
@@ -66,13 +67,13 @@ class App extends Component {
     );
   }
 
-  setListedUsers = async (listedUsers) => {
+  setListedUsers = (listedUsers) => {
     this.setState({
       listedUsers: listedUsers
     })
   }
 
-  setListedUserState = async (listedUser) => {
+  setListedUserState = (listedUser) => {
     this.setState({
       listedUser: listedUser
     })
@@ -91,6 +92,12 @@ class App extends Component {
     catch(ex){
       console.log('Error in updateUsersLatLng API call', ex)
     }
+  }
+
+  setReviews = (reviews) => {
+    this.setState({
+      reviews: reviews
+    })
   }
 
   // code for using using hook
@@ -116,7 +123,7 @@ class App extends Component {
           <Route path="/chat" component={PaintballChat} />
           <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} setListedUsers={this.setListedUsers} setListedUserState={this.setListedUserState} listedUsers={this.state.listedUsers} listedUser={this.state.listedUser} />} />
           <Route path="/createListing" render={props => <CreateListing {...props} user={this.state.user} />} />
-          <Route path="/profile" render={props => <Profile {...props} user={this.state.user} listedUser={this.state.listedUser} />} />
+          <Route path="/profile" render={props => <Profile {...props} user={this.state.user} setReviews={this.setReviews} reviews={this.state.reviews} listedUser={this.state.listedUser} />} />
         </Switch>
       </Router>
     )
