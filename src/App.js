@@ -13,6 +13,7 @@ import EditProfile from './components/editProfile/editProfile';
 import PaintballChat from './components/chat/chat';
 import CreateListing from './components/createListing/createListing';
 import ViewListing from './components/viewListings/viewListings';
+import Profile from './components/profile/profile';
 
 Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
 
@@ -22,7 +23,8 @@ class App extends Component {
     this.state = {
       user: null,
       loggedInUser: null,
-      listedUsers: []
+      listedUsers: [],
+      listedUser: null
     };
   }
 
@@ -70,6 +72,12 @@ class App extends Component {
     })
   }
 
+  setListedUserState = async (listedUser) => {
+    this.setState({
+      listedUser: listedUser
+    })
+  }
+
   updateUsersLatLng = async (userId, lat, lng) => {
     try{
       let updatedProfile = {
@@ -106,8 +114,9 @@ class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/chat" component={PaintballChat} />
-          <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} setListedUsers={this.setListedUsers} listedUsers={this.state.listedUsers} />} />
+          <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} setListedUsers={this.setListedUsers} setListedUserState={this.setListedUserState} listedUsers={this.state.listedUsers} listedUser={this.state.listedUser} />} />
           <Route path="/createListing" render={props => <CreateListing {...props} user={this.state.user} />} />
+          <Route path="/profile" render={props => <Profile {...props} user={this.state.user} listedUser={this.state.listedUser} />} />
         </Switch>
       </Router>
     )

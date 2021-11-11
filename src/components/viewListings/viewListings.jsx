@@ -43,15 +43,18 @@ function ViewListing(props) {
     }
 
     const goToCreatePage = () => {
-        history.push('/createListing')
+        history.push('/createListing');
+    }
+
+    const goToProfilePage = (listedUser) => {
+        props.setListedUserState(listedUser);
+        history.push(`/profile/`);
     }
 
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
         libraries
     })
-
-    const [selected, setSelected] = useState(null);
 
     if (loadError) return 'Error loading'
     if (!isLoaded) return 'Loading'
@@ -61,14 +64,19 @@ function ViewListing(props) {
             <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} option={options}>
                 {props.listedUsers.map(listedUser => {
                     return(
-                        <Marker 
-                            position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}
-                            onClick={() => {
-                                setSelected(listedUser);
-                            }}
-                        />
+                        <>
+                            <InfoWindow position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}>
+                                <div>
+                                    {listedUser.address}
+                                    <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
+                                </div>
+                            </InfoWindow>
+                        </>
                     ) 
                 })}
+                    {/* onClick={() => {
+                        setSelected(listedUser);
+                    }} */}
             </GoogleMap>
             <button onClick={event => goToCreatePage()}>Create Listing</button>
         </div>

@@ -14,7 +14,7 @@ const Register = () => {
     const sendRegistration = () => {
         console.log(formValues);
         register(formValues);
-        history.push('');
+        history.push('/login');
     }
     const { formValues, handleChange, handleSubmit } = useForm(sendRegistration);
 
