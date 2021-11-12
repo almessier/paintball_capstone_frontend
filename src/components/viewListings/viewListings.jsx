@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import QueryString from 'query-string';
+import { useHistory, useLocation } from "react-router-dom";
 
 
 const mapContainerStyle = {
@@ -24,9 +25,26 @@ const options = {
 
 function ViewListing(props) {
 
-    useEffect(()=> {
+    const location = useLocation();
+
+    useEffect(() => {
         getListed();
-    }, [])
+        const values = QueryString.parse(location.search);
+        if (values.success) {
+            console.log(
+                'order placed.'
+            );
+        }
+        if (values.canceled) {
+            console.log(
+                "order canceled"
+            );
+        }
+    }, []);
+
+    // useEffect(()=> {
+    //     getListed();
+    // }, [])
 
     const history = useHistory();
 
@@ -52,10 +70,10 @@ function ViewListing(props) {
         history.push(`/profile/`);
     }
 
-    const goToPayPage = (listedUser) => {
-        props.setListedUserState(listedUser);
-        history.push(`/pay/`);
-    }
+    // const goToPayPage = (listedUser) => {
+    //     props.setListedUserState(listedUser);
+    //     history.push(`/pay/`);
+    // }
 
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
@@ -75,7 +93,15 @@ function ViewListing(props) {
                                 <div>
                                     {listedUser.address}
                                     <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
-                                    <button onClick={event => goToPayPage(listedUser)}>Pay for Event</button>
+                                    <h5>$10.00</h5>
+                                    <form
+				                        action={'http://localhost:8000/api/paintball/create-checkout-session/'}
+				                        method='POST'
+			                        >
+                                        <button className='button' type='submit'>
+                                            Checkout
+                                        </button>
+                                    </form>
                                 </div>
                             </InfoWindow>
                         </>
