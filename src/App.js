@@ -14,6 +14,7 @@ import PaintballChat from './components/chat/chat';
 import CreateListing from './components/createListing/createListing';
 import ViewListing from './components/viewListings/viewListings';
 import Profile from './components/profile/profile';
+import Avatar from './components/avatar/avatar';
 
 Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
 
@@ -120,7 +121,8 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/logout" component={Logout} />
           <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} loggedInUser={this.state.loggedInUser} />} />
-          <Route path="/chat" component={PaintballChat} />
+          <Route path="/avatar" render={props => <Avatar {...props} loggedInUser={this.state.loggedInUser} />} />
+          <Route path="/chat" render={props => <PaintballChat {...props} user={this.state.user} />} />
           <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} setListedUsers={this.setListedUsers} setListedUserState={this.setListedUserState} listedUsers={this.state.listedUsers} listedUser={this.state.listedUser} />} />
           <Route path="/createListing" render={props => <CreateListing {...props} user={this.state.user} />} />
           <Route path="/profile" render={props => <Profile {...props} user={this.state.user} setReviews={this.setReviews} reviews={this.state.reviews} listedUser={this.state.listedUser} />} />

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
@@ -30,6 +30,7 @@ function ViewListing(props) {
 
     const history = useHistory();
 
+
     const getListed = async () => {
         try{
             let response = await axios.get(`http://localhost:8000/api/auth/getalllisted/`)
@@ -51,6 +52,11 @@ function ViewListing(props) {
         history.push(`/profile/`);
     }
 
+    const goToPayPage = (listedUser) => {
+        props.setListedUserState(listedUser);
+        history.push(`/pay/`);
+    }
+
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
         libraries
@@ -69,14 +75,12 @@ function ViewListing(props) {
                                 <div>
                                     {listedUser.address}
                                     <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
+                                    <button onClick={event => goToPayPage(listedUser)}>Pay for Event</button>
                                 </div>
                             </InfoWindow>
                         </>
                     ) 
                 })}
-                    {/* onClick={() => {
-                        setSelected(listedUser);
-                    }} */}
             </GoogleMap>
             <button onClick={event => goToCreatePage()}>Create Listing</button>
         </div>

@@ -17,7 +17,7 @@ const EditProfile = (props) => {
             first_name: formValues.firstName,
             last_name: formValues.lastName,
             address: formValues.address,
-            phone_number: formValues.phoneNumber
+            phone_number: formValues.phoneNumber,
         }
         updateProfile(updatedProfile);
     }
@@ -33,6 +33,10 @@ const EditProfile = (props) => {
         catch(ex){
             console.log('Error in updateProfile API call', ex)
         }
+    }
+
+    const goToAvatarUpload = () => {
+        history.push('/avatar/');
     }
     
     return (
@@ -66,6 +70,7 @@ const EditProfile = (props) => {
                             <input type='text' name='phoneNumber' value={formValues.phoneNumber} defaultValue={props.loggedInUser.phone_number} onChange={handleChange}/>
                         </div>
                         <button className="button" type="submit">Submit</button>
+                        <button className='button' onClick={event => goToAvatarUpload()}>Avatar</button>
                     </div>
                 </form>
             </div>
