@@ -25,14 +25,12 @@ const options = {
 
 function ViewListing(props) {
 
-    const location = useLocation();
-
     useEffect(() => {
         getListed();
         const values = QueryString.parse(location.search);
         if (values.success) {
             console.log(
-                'order placed.'
+                'order placed'
             );
         }
         if (values.canceled) {
@@ -41,13 +39,9 @@ function ViewListing(props) {
             );
         }
     }, []);
-
-    // useEffect(()=> {
-    //     getListed();
-    // }, [])
-
+    
+    const location = useLocation();
     const history = useHistory();
-
 
     const getListed = async () => {
         try{
@@ -70,11 +64,6 @@ function ViewListing(props) {
         history.push(`/profile/`);
     }
 
-    // const goToPayPage = (listedUser) => {
-    //     props.setListedUserState(listedUser);
-    //     history.push(`/pay/`);
-    // }
-
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
         libraries
@@ -95,7 +84,7 @@ function ViewListing(props) {
                                     <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
                                     <h5>$10.00</h5>
                                     <form
-				                        action={'http://localhost:8000/api/paintball/create-checkout-session/'}
+				                        action={'http://localhost:8000/api/paintball/checkout/post/price_1Jv2RJDG5C4sOYL1NFCMnBaV/'}
 				                        method='POST'
 			                        >
                                         <button className='button' type='submit'>
