@@ -26,6 +26,7 @@ class App extends Component {
       loggedInUser: null,
       listedUsers: [],
       listedUser: null,
+      listing: null,
       reviews: []
     };
   }
@@ -80,6 +81,12 @@ class App extends Component {
     })
   }
 
+  setListing = (listing) => {
+    this.setState({
+      listing: listing
+    })
+  }
+
   updateUsersLatLng = async (userId, lat, lng) => {
     try{
       let updatedProfile = {
@@ -123,7 +130,7 @@ class App extends Component {
           <Route path="/editProfile" render={props => <EditProfile {...props} user={this.state.user} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/avatar" render={props => <Avatar {...props} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/chat" render={props => <PaintballChat {...props} user={this.state.user} />} />
-          <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} setListedUsers={this.setListedUsers} setListedUserState={this.setListedUserState} listedUsers={this.state.listedUsers} listedUser={this.state.listedUser} />} />
+          <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} listing={this.state.listing} setListing={this.setListing} setListedUsers={this.setListedUsers} setListedUserState={this.setListedUserState} listedUsers={this.state.listedUsers} listedUser={this.state.listedUser} />} />
           <Route path="/createListing" render={props => <CreateListing {...props} user={this.state.user} />} />
           <Route path="/profile" render={props => <Profile {...props} user={this.state.user} setReviews={this.setReviews} reviews={this.state.reviews} listedUser={this.state.listedUser} />} />
         </Switch>

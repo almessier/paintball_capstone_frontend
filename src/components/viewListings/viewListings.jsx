@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import { GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, InfoWindow, Marker } from '@react-google-maps/api';
 import axios from 'axios';
 import QueryString from 'query-string';
 import { useHistory, useLocation } from "react-router-dom";
@@ -39,9 +39,23 @@ function ViewListing(props) {
             );
         }
     }, []);
-    
+
     const location = useLocation();
     const history = useHistory();
+    const [selected, setSelected] = useState(null);
+
+    const getListing = async (listedUser) => {
+        try{
+            let response = await axios.get(`http://localhost:8000/api/paintball/listings/get/${listedUser.id}/`)
+            let currentListing = response.data;
+            props.setListing(currentListing);
+            setSelected(listedUser);
+        }
+              
+        catch(ex){
+            console.log('Error in getListing API call', ex)
+        }
+    }
 
     const getListed = async () => {
         try{
@@ -54,6 +68,7 @@ function ViewListing(props) {
             console.log('Error in getListed API call', ex)
         }
     }
+
 
     const goToCreatePage = () => {
         history.push('/createListing');
@@ -78,21 +93,35 @@ function ViewListing(props) {
                 {props.listedUsers.map(listedUser => {
                     return(
                         <>
-                            <InfoWindow position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}>
-                                <div>
-                                    {listedUser.address}
-                                    <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
-                                    <h5>$10.00</h5>
-                                    <form
-				                        action={'http://localhost:8000/api/paintball/checkout/post/price_1Jv2RJDG5C4sOYL1NFCMnBaV/'}
-				                        method='POST'
-			                        >
-                                        <button className='button' type='submit'>
-                                            Checkout
-                                        </button>
-                                    </form>
-                                </div>
-                            </InfoWindow>
+                            <Marker
+                                position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}
+                                onClick={() => {
+                                    getListing(listedUser);
+                                }}
+                            />
+
+                            {selected ? (
+                                <InfoWindow position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}>
+                                    <div>
+                                        {props.listing.name}
+                                        {listedUser.username}
+                                        {listedUser.address}
+                                        {props.listing.start_time}
+                                        {props.listing.end_time}
+                                        {props.listing.start_date}
+                                        <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
+                                        <h5>{props.listing.price}</h5>
+                                        <form
+                                            action={`http://localhost:8000/api/paintball/checkout/post/${props.listing.price_id}/`}
+                                            method='POST'
+                                        >
+                                            <button className='button' type='submit'>
+                                                Pay for Event
+                                            </button>
+                                        </form>
+                                    </div>
+                                </InfoWindow>
+                            ) : null}
                         </>
                     ) 
                 })}

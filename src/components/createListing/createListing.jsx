@@ -22,8 +22,8 @@ const CreateListing = (props) => {
             start_date: formValues.startDate,
             price: formValues.listingPrice,
             name: formValues.listingName,
-            price_id: price.id,
-            product_id: product.id
+            price_id: price.data.id,
+            product_id: product.data.id
         }
         try {
             // const jwt = localStorage.getItem('token');
@@ -51,7 +51,7 @@ const CreateListing = (props) => {
     const createPrice = async (product) => {
         try{
             // const jwt = localStorage.getItem('token');
-            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${formValues.listingPrice}/product/${product.id}/`)//, newListing, { headers: {Authorization: 'Bearer ' + jwt}});
+            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${formValues.listingPrice}/product/${product.data.id}/`)//, newListing, { headers: {Authorization: 'Bearer ' + jwt}});
             createListing(price, product);
         }
             
