@@ -15,6 +15,7 @@ import CreateListing from './components/createListing/createListing';
 import ViewListing from './components/viewListings/viewListings';
 import Profile from './components/profile/profile';
 import Avatar from './components/avatar/avatar';
+import Weather from './components/weather/weather';
 
 Geocode.setApiKey(process.env.REACT_APP_MAPS_API_KEY);
 
@@ -133,6 +134,7 @@ class App extends Component {
           <Route path="/viewListings" render={props => <ViewListing {...props} user={this.state.user} listing={this.state.listing} setListing={this.setListing} setListedUsers={this.setListedUsers} setListedUserState={this.setListedUserState} listedUsers={this.state.listedUsers} listedUser={this.state.listedUser} />} />
           <Route path="/createListing" render={props => <CreateListing {...props} user={this.state.user} />} />
           <Route path="/profile" render={props => <Profile {...props} user={this.state.user} setReviews={this.setReviews} reviews={this.state.reviews} listedUser={this.state.listedUser} />} />
+          <Route path="/weather" render={props => <Weather {...props} user={this.state.user} listedUser={this.state.listedUser} listing={this.state.listing} />} />
         </Switch>
       </Router>
     )

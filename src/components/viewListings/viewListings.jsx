@@ -76,7 +76,13 @@ function ViewListing(props) {
 
     const goToProfilePage = (listedUser) => {
         props.setListedUserState(listedUser);
-        history.push(`/profile/`);
+        history.push(`/profile`);
+    }
+    
+    const goToWeatherPage = (listedUser, listing) => {
+        props.setListedUserState(listedUser);
+        props.setListing(listing);
+        history.push(`/weather`);
     }
 
     const {isLoaded, loadError} = useLoadScript({
@@ -110,6 +116,7 @@ function ViewListing(props) {
                                         {props.listing.end_time}
                                         {props.listing.start_date}
                                         <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
+                                        <button onClick={event => goToWeatherPage(listedUser, props.listing)}>Check Weather</button>
                                         <h5>{props.listing.price}</h5>
                                         <form
                                             action={`http://localhost:8000/api/paintball/checkout/post/${props.listing.price_id}/`}
