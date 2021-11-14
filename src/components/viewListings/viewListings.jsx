@@ -11,17 +11,8 @@ const mapContainerStyle = {
   height: '700px'
 };
 
-const center = {
-  lat: 43.132990,
-  lng: -87.905930
-};
-
 const libraries = ['places']
 
-const options = {
-    disableDefaultUI: true,
-    zoomControl: true
-}
 
 function ViewListing(props) {
 
@@ -40,9 +31,18 @@ function ViewListing(props) {
         }
     }, []);
 
+    let center = {
+        lat: parseFloat(props.loggedInUser.lat),
+        lng: parseFloat(props.loggedInUser.lng)
+    };
+
     const location = useLocation();
     const history = useHistory();
     const [selected, setSelected] = useState(null);
+    const options = {
+        disableDefaultUI: true,
+        zoomControl: true
+    }
 
     const getListing = async (listedUser) => {
         try{
@@ -69,6 +69,28 @@ function ViewListing(props) {
         }
     }
 
+    const deleteListing = async () => {
+        try{
+            await axios.delete(`http://localhost:8000/api/paintball/listings/delete/${props.user.user_id}/`)
+            removeIsListed();
+        } 
+        catch(ex){
+            console.log('Error in deleteListing API call', ex)
+        }
+    }
+
+    const removeIsListed = async () => {
+        try{
+            let updatedListedStatus = { is_listed: false };
+            // const jwt = localStorage.getItem('token');
+            await axios.put(`http://localhost:8000/api/auth/put/${props.user.user_id}/`, updatedListedStatus)//, updatedListedStatus, { headers: {Authorization: 'Bearer ' + jwt}});
+            getListed();
+        }
+            
+        catch(ex){
+            console.log('Error in removeIsListed API call', ex)
+        }
+    }
 
     const goToCreatePage = () => {
         history.push('/createListing');
@@ -95,7 +117,7 @@ function ViewListing(props) {
 
     return (
         <div>
-            <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} option={options}>
+            <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} options={options}>
                 {props.listedUsers.map(listedUser => {
                     return(
                         <>
@@ -134,6 +156,7 @@ function ViewListing(props) {
                 })}
             </GoogleMap>
             <button onClick={event => goToCreatePage()}>Create Listing</button>
+            <button onClick={event => deleteListing()}>Delete Listing</button>
         </div>
     )
 }

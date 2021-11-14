@@ -55,7 +55,9 @@ const Profile = (props) => {
     
     return (
         <div className="body">
-            <img src={image} alt='avatar'></img>
+            {props.listedUser.avatar &&
+                <img src={image} alt='avatar'></img>
+            }  
             <div>
                 {props.listedUser.username}
             </div>
