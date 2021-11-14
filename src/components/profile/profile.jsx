@@ -3,15 +3,18 @@ import "./profile.css"
 import axios from 'axios';
 import useForm from '../../hooks/useForm';
 import { useHistory } from "react-router-dom";
+import { getImages } from 'stream-chat-react';
 
 
 const Profile = (props) => {
 
     const { formValues, handleChange, handleSubmit } = useForm(submitReview)
     const history = useHistory();
+    const [image, setImage] = useState(null);
 
     useEffect(()=>{
         getReviews();
+        changeImageUrl();
     }, [])
 
     function submitReview(){
@@ -21,6 +24,11 @@ const Profile = (props) => {
             rating: parseInt(formValues.rating)
         }
         createReview(review);
+    }
+
+    const changeImageUrl = () => {
+        let newUrl = 'http://localhost:8000' + props.listedUser.avatar
+        setImage(newUrl);
     }
 
     const getReviews = async () => {
@@ -47,6 +55,7 @@ const Profile = (props) => {
     
     return (
         <div className="body">
+            <img src={image} alt='avatar'></img>
             <div>
                 {props.listedUser.username}
             </div>

@@ -38,15 +38,26 @@ function Weather(props) {
 
     return (
         <div>
+            <div>
+                {props.listing.name}
+                {props.listedUser.username}
+                {props.listedUser.address}
+                {props.listing.start_time}
+                {props.listing.end_time}
+                {props.listing.start_date}
+            </div>
             {weather &&
             weather.forecast.forecastday.map(day => {
                 return(
-                    <div>
-                        {day.day.maxtemp_f}
-                        {day.day.mintemp_f}
-                        {day.day.avgtemp_f}
-                        {day.day.condition.text}
-                    </div>
+                    <>
+                        <div>
+                            {day.date}
+                            {day.day.maxtemp_f}
+                            {day.day.mintemp_f}
+                            {day.day.avgtemp_f}
+                            {day.day.condition.text}
+                        </div>
+                    </>
                 ) 
             })}
         </div>
