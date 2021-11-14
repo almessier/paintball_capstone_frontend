@@ -129,7 +129,7 @@ function ViewListing(props) {
                             />
 
                             {selected ? (
-                                <InfoWindow position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}>
+                                <InfoWindow position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}} onCloseClick={event => setSelected(null)}>
                                     <div>
                                         {props.listing.name}
                                         {listedUser.username}
