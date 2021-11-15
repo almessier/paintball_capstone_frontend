@@ -1,24 +1,15 @@
-.body {
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background: white;
-  font-size: 20px;
+.row-size {
+  height: 23vh;
 }
 
-.login-button {
-  height: 30px;
-  margin: 30px 0;
+.login {
+  padding: 50px;
 }
 
-.login-button {
-  height: 100%;
-  width: 100%;
-  outline: none;
-  color: #fff;
-  border: 2px;
-  font-size: 22px;
-  background: rgb(43, 43, 241);
+.username-pad {
+  padding-top: 20px;
+}
+
+.login-text {
+  text-align: center;
 }

@@ -18,19 +18,29 @@ const Login = () => {
     }
 
     return (
-        <div className='body'>
-            <form onSubmit={handleSubmit} >
-                <div className="mb-3">
-                    <label htmlFor="usernameInput" className="form-label">Username</label>
-                    <input type="username" name="username" value={formValues.username} onChange={handleChange} className="form-control" id="usernameInput" aria-describedby="emailHelp" />
+        <div className='container-fluid'>
+            <div className='row row-size gutter' />
+            <div className='row'>
+                <div className='col-4 gutter' />
+                <div className='col-4 login'>
+                    <h1 className='login-text'>Login</h1>
+                    <form onSubmit={handleSubmit} >
+                        <div className="mb-3 username-pad">
+                            <label htmlFor="usernameInput" className="form-label">Username</label>
+                            <input type="username" name="username" value={formValues.username} onChange={handleChange} className="form-control" id="usernameInput" />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="passwordInput" className="form-label">Password</label>
+                            <input type="password" name="password" value={formValues.password} onChange={handleChange} className="form-control" id="passwordInput" />
+                        </div>
+                        <button className="btn btn-primary" type="submit" >Submit</button>
+                        <br />
+                        <br />
+                        <p>Not registered? Sign up <Link to="/register">here.</Link></p>
+                    </form>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="passwordInput" className="form-label">Password</label>
-                    <input type="password" name="password" value={formValues.password} onChange={handleChange} className="form-control" id="passwordInput" />
-                </div>
-                <button className="login-button" type="submit" >Submit</button>
-                <p>Not registered? Sign up <Link to="/register">here.</Link></p>
-            </form>
+                <div className='col-4 gutter' />
+            </div>
         </div>
         )
 }
