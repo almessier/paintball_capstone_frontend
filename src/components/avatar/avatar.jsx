@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
-import './avatar.css';
+import './avatar.css'
 
 function Avatar(props) {
 
@@ -23,14 +23,18 @@ function Avatar(props) {
   }
 
   return (
-    <div className="avatar">
-      <h2>Upload Avatar</h2>
-      <label>
-        Avatar
-        <input type="file" accept="image/*" onChange={event => setAvatar(event.target.files[0])} />
-      </label>
-      <br/>
-      <button onClick={()=> updateAvatar()}>Submit</button>
+    <div className="container-fluid">
+        <div className="row avatar-margin" />
+        <div className="row">
+            <div className="col-2 gutter" />
+            <div className="col-8 pad-avatar">
+                <h2>Upload Avatar</h2>
+                <label>Avatar: <input type="file" accept="image/*" onChange={event => setAvatar(event.target.files[0])} /></label>
+                <br/>
+                <button className="btn btn-primary button-avatar" onClick={()=> updateAvatar()}>Submit</button>
+            </div>
+            <div className="col-2 gutter" />
+        </div>
     </div>
   );
 }
