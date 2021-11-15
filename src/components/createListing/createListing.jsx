@@ -49,7 +49,7 @@ const CreateListing = (props) => {
 
     const createPrice = async (product) => {
         try{
-            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${parseInt(formValues.listingPrice*100)}/product/${product.data.id}/`);
+            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${formValues.listingPrice*100}/product/${product.data.id}/`);
             createListing(price, product);
         }
             
