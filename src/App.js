@@ -44,7 +44,8 @@ class App extends Component {
 
   setLoggedInUser = async (userId) => {
     try{
-      let response = await axios.get(`http://localhost:8000/api/auth/get/${userId}/`)
+      const jwt = localStorage.getItem('token');
+      let response = await axios.get(`http://localhost:8000/api/auth/get/${userId}/`, { headers: {Authorization: 'Bearer ' + jwt}});
       this.setState({
         loggedInUser: response.data
       }, ()=> {
@@ -94,8 +95,8 @@ class App extends Component {
         lat: lat,
         lng: lng
       };
-      // const jwt = localStorage.getItem('token');
-      await axios.put(`http://localhost:8000/api/auth/put/${userId}/`, updatedProfile)//, updatedProfile, { headers: {Authorization: 'Bearer ' + jwt}});
+      const jwt = localStorage.getItem('token');
+      await axios.put(`http://localhost:8000/api/auth/put/${userId}/`, updatedProfile, { headers: {Authorization: 'Bearer ' + jwt}});
     }
         
     catch(ex){

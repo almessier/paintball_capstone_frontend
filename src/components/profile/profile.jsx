@@ -3,7 +3,6 @@ import "./profile.css"
 import axios from 'axios';
 import useForm from '../../hooks/useForm';
 import { useHistory } from "react-router-dom";
-import { getImages } from 'stream-chat-react';
 
 
 const Profile = (props) => {
@@ -33,7 +32,8 @@ const Profile = (props) => {
 
     const getReviews = async () => {
         try{
-            let response = await axios.get(`http://localhost:8000/api/paintball/reviews/getall/${props.listedUser.id}/`);
+            const jwt = localStorage.getItem('token');
+            let response = await axios.get(`http://localhost:8000/api/paintball/reviews/getall/${props.listedUser.id}/`, { headers: {Authorization: 'Bearer ' + jwt}});
             props.setReviews(response.data)
         }
         catch (ex){
@@ -43,9 +43,9 @@ const Profile = (props) => {
 
     const createReview = async (review) => {
         try{
-            // const jwt = localStorage.getItem('token');
+            const jwt = localStorage.getItem('token');
             let newReview = review
-            await axios.post(`http://localhost:8000/api/paintball/reviews/post/`, newReview)//, newReview, { headers: {Authorization: 'Bearer ' + jwt}});
+            await axios.post(`http://localhost:8000/api/paintball/reviews/post/`, newReview, { headers: {Authorization: 'Bearer ' + jwt}});
             getReviews();
         }
             

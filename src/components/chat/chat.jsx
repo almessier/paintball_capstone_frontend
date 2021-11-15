@@ -30,18 +30,16 @@ const PaintballChat = (props) => {
   });
 
   return(
-    <div className='container'>
-      <Chat client={chatClient} customClasses={customClasses} theme='messaging light'>
-        <Channel channel={channel}>
-          <Window>
-            <ChannelHeader />
-            <MessageList />
-            <MessageInput />
-          </Window>
-          <Thread />
-        </Channel>
-      </Chat>
-    </div>
+    <Chat client={chatClient} theme='messaging light'>
+      <Channel channel={channel}>
+        <Window>
+          <ChannelHeader />
+          <MessageList />
+          <MessageInput />
+        </Window>
+        <Thread />
+      </Channel>
+    </Chat>
   )
 };
 

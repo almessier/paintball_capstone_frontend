@@ -26,8 +26,8 @@ const CreateListing = (props) => {
             product_id: product.data.id
         }
         try {
-            // const jwt = localStorage.getItem('token');
-            await axios.post(`http://localhost:8000/api/paintball/listings/post/`, listing)//, listing, { headers: {Authorization: 'Bearer ' + jwt}});
+            const jwt = localStorage.getItem('token');
+            await axios.post(`http://localhost:8000/api/paintball/listings/post/`, listing, { headers: {Authorization: 'Bearer ' + jwt}});
             updateIsListedStatus();
         }
         catch (ex) {
@@ -37,8 +37,7 @@ const CreateListing = (props) => {
 
     const createProduct = async () => {
         try{
-            // const jwt = localStorage.getItem('token');
-            let product = await axios.post(`http://localhost:8000/api/paintball/stripe/post/product/${formValues.listingName}/`)//, newListing, { headers: {Authorization: 'Bearer ' + jwt}});
+            let product = await axios.post(`http://localhost:8000/api/paintball/stripe/post/product/${formValues.listingName}/`);
             createPrice(product);
         }
             
@@ -50,8 +49,7 @@ const CreateListing = (props) => {
 
     const createPrice = async (product) => {
         try{
-            // const jwt = localStorage.getItem('token');
-            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${formValues.listingPrice}/product/${product.data.id}/`)//, newListing, { headers: {Authorization: 'Bearer ' + jwt}});
+            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${formValues.listingPrice}/product/${product.data.id}/`);
             createListing(price, product);
         }
             
@@ -63,8 +61,8 @@ const CreateListing = (props) => {
     const updateIsListedStatus = async () => {
         try{
             let updatedListedStatus = { is_listed: true };
-            // const jwt = localStorage.getItem('token');
-            await axios.put(`http://localhost:8000/api/auth/put/${props.user.user_id}/`, updatedListedStatus)//, updatedListedStatus, { headers: {Authorization: 'Bearer ' + jwt}});
+            const jwt = localStorage.getItem('token');
+            await axios.put(`http://localhost:8000/api/auth/put/${props.user.user_id}/`, updatedListedStatus, { headers: {Authorization: 'Bearer ' + jwt}});
             history.push('/viewListings');
         }
             

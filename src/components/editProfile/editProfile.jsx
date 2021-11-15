@@ -25,8 +25,8 @@ const EditProfile = (props) => {
     const updateProfile = async (profile) => {
         try{
             let updatedProfile = profile;
-            // const jwt = localStorage.getItem('token');
-            await axios.put(`http://localhost:8000/api/auth/put/${props.user.user_id}/`, updatedProfile)//, newProduct, { headers: {Authorization: 'Bearer ' + jwt}});
+            const jwt = localStorage.getItem('token');
+            await axios.put(`http://localhost:8000/api/auth/put/${props.user.user_id}/`, updatedProfile, { headers: {Authorization: 'Bearer ' + jwt}});
             history.push('/')
         }
             

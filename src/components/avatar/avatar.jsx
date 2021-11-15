@@ -10,10 +10,10 @@ function Avatar(props) {
 
   const updateAvatar = async () => {
       try{
-          // const jwt = localStorage.getItem('token');
+          const jwt = localStorage.getItem('token');
           let newAvatar = new FormData();
           newAvatar.append('avatar', avatar);
-          await axios.put(`http://localhost:8000/api/auth/put/${props.loggedInUser.id}/`, newAvatar)//, updatedAvatar, { headers: {Authorization: 'Bearer ' + jwt}});
+          await axios.put(`http://localhost:8000/api/auth/put/${props.loggedInUser.id}/`, newAvatar, { headers: {Authorization: 'Bearer ' + jwt}});
           history.push('/')
       }
           

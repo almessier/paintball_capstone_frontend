@@ -49,7 +49,8 @@ function ViewListing(props) {
 
     const getListing = async (listedUser) => {
         try{
-            let response = await axios.get(`http://localhost:8000/api/paintball/listings/get/${listedUser.id}/`)
+            const jwt = localStorage.getItem('token');
+            let response = await axios.get(`http://localhost:8000/api/paintball/listings/get/${listedUser.id}/`, { headers: {Authorization: 'Bearer ' + jwt}});
             let currentListing = response.data;
             setListing(currentListing);
             props.setListedUserState(listedUser);
@@ -63,7 +64,8 @@ function ViewListing(props) {
 
     const getListed = async () => {
         try{
-            let response = await axios.get(`http://localhost:8000/api/auth/getalllisted/`)
+            const jwt = localStorage.getItem('token');
+            let response = await axios.get(`http://localhost:8000/api/auth/getalllisted/`, { headers: {Authorization: 'Bearer ' + jwt}});
             let listedUsers = response.data;
             props.setListedUsers(listedUsers);
         }
@@ -75,7 +77,8 @@ function ViewListing(props) {
 
     const deleteListing = async () => {
         try{
-            await axios.delete(`http://localhost:8000/api/paintball/listings/delete/${props.user.user_id}/`)
+            const jwt = localStorage.getItem('token');
+            await axios.delete(`http://localhost:8000/api/paintball/listings/delete/${props.user.user_id}/`, { headers: {Authorization: 'Bearer ' + jwt}});
             removeIsListed();
         } 
         catch(ex){
@@ -86,8 +89,8 @@ function ViewListing(props) {
     const removeIsListed = async () => {
         try{
             let updatedListedStatus = { is_listed: false };
-            // const jwt = localStorage.getItem('token');
-            await axios.put(`http://localhost:8000/api/auth/put/${props.user.user_id}/`, updatedListedStatus)//, updatedListedStatus, { headers: {Authorization: 'Bearer ' + jwt}});
+            const jwt = localStorage.getItem('token');
+            await axios.put(`http://localhost:8000/api/auth/put/${props.user.user_id}/`, updatedListedStatus, { headers: {Authorization: 'Bearer ' + jwt}});
             getListed();
         }
             
