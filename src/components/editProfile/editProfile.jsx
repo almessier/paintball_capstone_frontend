@@ -40,41 +40,46 @@ const EditProfile = (props) => {
     }
     
     return (
-        <div className="body">
-            <div className= 'container'>
-                <div className ="title">Update Profile</div>
-                <form className = "-container" onSubmit={handleSubmit}>
-                    <div className ="user-details">
-                        <div className="input-box">
-                            <span className="details">Username</span>
-                            <input type='text' name='username' value={formValues.username} defaultValue={props.loggedInUser.username} onChange={handleChange}/>
-                        </div>
-                        <div className="input-box">
-                            <span className="details">First Name</span>
-                            <input type='text' name='firstName' value={formValues.firstName} defaultValue={props.loggedInUser.first_name} onChange={handleChange}/>
-                        </div>
-                        <div className="input-box">
-                            <span className="details">Last Name</span>
-                            <input type='text' name='lastName' value={formValues.lastName} defaultValue={props.loggedInUser.last_name} onChange={handleChange}/>
-                        </div>
-                        <div className="input-box">
-                            <span className="details">Email</span>
-                            <input type='text' name='email' value={formValues.email} defaultValue={props.loggedInUser.email} onChange={handleChange}/>
-                        </div>
-                        <div className="input-box">
-                            <span className="details">Address</span>
-                            <input type='text' name='address' value={formValues.address} defaultValue={props.loggedInUser.address} onChange={handleChange}/>
-                        </div>
-                        <div className="input-box">
-                            <span className="details">Phone Number</span>
-                            <input type='text' name='phoneNumber' value={formValues.phoneNumber} defaultValue={props.loggedInUser.phone_number} onChange={handleChange}/>
-                        </div>
-                        <button className="button" type="submit">Submit</button>
-                        <button className='button' onClick={event => goToAvatarUpload()}>Avatar</button>
+            <div className= 'container-fluid'>
+                <div className = 'row'>
+                    <div className ='col-3 gutter' />
+                    <div className ='col-6 form-card'>
+                        <h1 className ="title">Update Profile</h1>
+                        <hr />
+                        <form className = "-container" onSubmit={handleSubmit}>
+                            <div className ="user-details">
+                                <div className="mb-3">
+                                    <label htmlFor='username' className="form-label">Username</label>
+                                    <input type='text' className='form-control' name='username' id='username' value={formValues.username} defaultValue={props.loggedInUser.username} onChange={handleChange}/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor='firstName' className="form-label">First Name</label>
+                                    <input type='text' className='form-control' name='firstName' id='firstName' value={formValues.firstName} defaultValue={props.loggedInUser.first_name} onChange={handleChange}/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor='lastName' className="form-label">Last Name</label>
+                                    <input type='text' className='form-control' name='lastName' id='lastName' value={formValues.lastName} defaultValue={props.loggedInUser.last_name} onChange={handleChange}/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor='email' className="form-label">Email Address</label>
+                                    <input type='email' className='form-control' name='email' id='email' value={formValues.email} defaultValue={props.loggedInUser.email} onChange={handleChange}/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor='address' className="form-label">Address</label>
+                                    <input type='text' className='form-control' name='address' id='address' value={formValues.address} defaultValue={props.loggedInUser.address} onChange={handleChange}/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor='phoneNumber' className="form-label">Phone Number</label>
+                                    <input type='text' className='form-control' name='phoneNumber' id='phoneNumber' value={formValues.phoneNumber} defaultValue={props.loggedInUser.phone_number} onChange={handleChange}/>
+                                </div>
+                                <button className="btn btn-primary" type="submit">Submit</button>
+                                <button className="btn btn-secondary change-avatar" onClick={event => goToAvatarUpload()}>Change Avatar</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                    <div className='col-3 gutter' />
+                </div>
             </div>
-        </div>
     );
 
 }

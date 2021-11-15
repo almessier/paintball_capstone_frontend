@@ -1,0 +1,20 @@
+.gutter {
+  background-color: #20142c;
+}
+
+.change-avatar {
+  margin-left: 5px;
+}
+
+html {
+  background-color: #20142c;
+}
+
+.title {
+  padding: 20px;
+  text-align: center;
+}
+
+.form-card {
+  padding: 20px;
+}
