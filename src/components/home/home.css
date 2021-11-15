@@ -1,0 +1,24 @@
+.news-img {
+  padding-bottom: 5vh;
+  margin-left: 5vh;
+  margin-top: 5vh;
+}
+
+.welcome {
+  text-align: center;
+  padding: 12px;
+  padding-bottom: 20px;
+}
+
+.purple {
+  height: 40px;
+  background-color: #20142c;
+}
+
+.white {
+  background-color: white;
+}
+
+.news-header-text {
+  margin-top: 5vh;
+}
