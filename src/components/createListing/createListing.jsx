@@ -20,7 +20,7 @@ const CreateListing = (props) => {
             start_time: (formValues.startTime + ':00.000000'),
             end_time: (formValues.endTime + ':00.000000'),
             start_date: formValues.startDate,
-            price: (formValues.listingPrice * 100),
+            price: (parseInt(formValues.listingPrice * 100)),
             name: formValues.listingName,
             price_id: price.data.id,
             product_id: product.data.id
@@ -49,7 +49,7 @@ const CreateListing = (props) => {
 
     const createPrice = async (product) => {
         try{
-            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${formValues.listingPrice}/product/${product.data.id}/`);
+            let price = await axios.post(`http://localhost:8000/api/paintball/stripe/post/price/${parseInt(formValues.listingPrice*100)}/product/${product.data.id}/`);
             createListing(price, product);
         }
             
