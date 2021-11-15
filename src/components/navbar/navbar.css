@@ -1,3 +1,7 @@
 .nav-main-logo {
-  height: 3vh;
+  height: 6vh;
+}
+
+.bg-custom {
+  background-color: #20142c;
 }

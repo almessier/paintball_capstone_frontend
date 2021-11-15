@@ -6,10 +6,10 @@ import './navbar.css';
 const Navbar = ({user}) => {
     return(
         <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+            <nav className="navbar navbar-expand-lg navbar-dark sticky-top bg-custom">
                 <div className="container-fluid">
                     <NavLink className="navbar-brand nav-main-logo" to="/">
-                        <img src="" alt="Home Logo"/>
+                        <img src="images/hopper 50px height.png" alt="Home Logo"/>
                     </NavLink>
                     <button
                         className="navbar-toggler"

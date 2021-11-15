@@ -4,11 +4,12 @@ import { GoogleMap, useLoadScript, InfoWindow, Marker } from '@react-google-maps
 import axios from 'axios';
 import QueryString from 'query-string';
 import { useHistory, useLocation } from "react-router-dom";
+import moment from 'moment';
 
 
 const mapContainerStyle = {
-  width: '1200px',
-  height: '700px'
+  width: '100vw',
+  height: '89vh'
 };
 
 const libraries = ['places']
@@ -39,6 +40,7 @@ function ViewListing(props) {
     const location = useLocation();
     const history = useHistory();
     const [selected, setSelected] = useState(null);
+    const [listing, setListing] = useState(null);
     const options = {
         disableDefaultUI: true,
         zoomControl: true
@@ -48,7 +50,8 @@ function ViewListing(props) {
         try{
             let response = await axios.get(`http://localhost:8000/api/paintball/listings/get/${listedUser.id}/`)
             let currentListing = response.data;
-            props.setListing(currentListing);
+            setListing(currentListing);
+            props.setListedUserState(listedUser);
             setSelected(listedUser);
         }
               
@@ -107,6 +110,12 @@ function ViewListing(props) {
         history.push(`/weather`);
     }
 
+    const dateOptions = {
+        year: "numeric",
+        month:"short",
+        day:"2-digit"
+    }
+
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
         libraries
@@ -117,43 +126,48 @@ function ViewListing(props) {
 
     return (
         <div>
-            <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center} options={options}>
+            <GoogleMap mapContainerStyle={mapContainerStyle} zoom={11} center={center} options={options}>
                 {props.listedUsers.map(listedUser => {
                     return(
                         <>
                             <Marker
+                                key={`${listedUser.lat}${listedUser.lng}`}
                                 position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}}
-                                onClick={() => {
+                                onClick={event => {
                                     getListing(listedUser);
                                 }}
                             />
-
-                            {selected ? (
-                                <InfoWindow position={{lat: parseFloat(listedUser.lat), lng: parseFloat(listedUser.lng)}} onCloseClick={event => setSelected(null)}>
-                                    <div>
-                                        {props.listing.name}
-                                        {listedUser.username}
-                                        {listedUser.address}
-                                        {props.listing.start_time}
-                                        {props.listing.end_time}
-                                        {props.listing.start_date}
-                                        <button onClick={event => goToProfilePage(listedUser)}>See Profile</button>
-                                        <button onClick={event => goToWeatherPage(listedUser, props.listing)}>Check Weather</button>
-                                        <h5>{props.listing.price}</h5>
-                                        <form
-                                            action={`http://localhost:8000/api/paintball/checkout/post/${props.listing.price_id}/`}
-                                            method='POST'
-                                        >
-                                            <button className='button' type='submit'>
-                                                Pay for Event
-                                            </button>
-                                        </form>
-                                    </div>
-                                </InfoWindow>
-                            ) : null}
                         </>
                     ) 
                 })}
+
+                {selected ? (
+                    <InfoWindow position={{lat: parseFloat(props.listedUser.lat), lng: parseFloat(props.listedUser.lng)}} onCloseClick={event => setSelected(null)}>
+                        <div>
+                            <div>{listing.name}</div>
+                            <div>
+                                {props.listedUser.username}
+                                <button onClick={event => goToProfilePage(props.listedUser)}>See Profile</button>
+                            </div>
+                            <div>{props.listedUser.address}</div>
+                            <div>{moment(listing.start_time.slice(0,5), ['HH:mm']).format('hh:mm A')}</div>
+                            <div>{moment(listing.end_time.slice(0,5), ['HH:mm']).format('hh:mm A')}</div>
+                            <div>{new Date(listing.start_date).toLocaleDateString('en-US', dateOptions)}</div>
+                            
+                            <button onClick={event => goToWeatherPage(props.listedUser, listing)}>Check Weather</button>
+                            <h5>Price: ${Math.round((listing.price/100), 2)}</h5>
+                            <form
+                                action={`http://localhost:8000/api/paintball/checkout/post/${listing.price_id}/`}
+                                method='POST'
+                            >
+                                <button className='button' type='submit'>
+                                    Pay for Event
+                                </button>
+                            </form>
+                        </div>
+                    </InfoWindow>
+                ) : null}
+
             </GoogleMap>
             <button onClick={event => goToCreatePage()}>Create Listing</button>
             <button onClick={event => deleteListing()}>Delete Listing</button>
