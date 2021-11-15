@@ -8,7 +8,7 @@ const Navbar = ({user}) => {
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
                 <div className="container-fluid">
-                    <NavLink className="navbar-brand" to="/">
+                    <NavLink className="navbar-brand nav-main-logo" to="/">
                         <img src="" alt="Home Logo"/>
                     </NavLink>
                     <button
