@@ -46,6 +46,7 @@ const Profile = (props) => {
             // const jwt = localStorage.getItem('token');
             let newReview = review
             await axios.post(`http://localhost:8000/api/paintball/reviews/post/`, newReview)//, newReview, { headers: {Authorization: 'Bearer ' + jwt}});
+            getReviews();
         }
             
         catch(ex){
@@ -54,57 +55,77 @@ const Profile = (props) => {
     }
     
     return (
-        <div className="body">
-            {props.listedUser.avatar &&
-                <img src={image} alt='avatar'></img>
-            }  
-            <div>
-                {props.listedUser.username}
-            </div>
-            <div>
-                {props.listedUser.first_name}
-            </div>
-            <div>
-                {props.listedUser.last_name}
-            </div>
-            <div>
-                {props.listedUser.address}
-            </div>
-            <div>
-                {props.listedUser.email}
-            </div>
-            <div>
-                {props.listedUser.phone_number}
-            </div>
-            <div className= 'container'>
-                <div className ="title">Leave Review</div>
-                <form className = "-container" onSubmit={handleSubmit}>
-                    <div className ="user-details">
-                        <div className="input-box">
-                            <span className="details">Content</span>
-                            <input type='text' name='content' value={formValues.content} onChange={handleChange}/>
-                        </div>
-                        <div className="input-box">
-                            <span className="details">Rating</span>
-                            <input type='number' name='rating' value={formValues.rating} onChange={handleChange}/>
-                        </div>
-                        <button className="button" type="submit">Submit</button>
+        <div className='container-fluid'>
+            <div className='row'>
+                <div className='col-2 gutter' />
+                <div className='col-4 col-pad'>
+                    {props.listedUser.avatar &&
+                        <img className='avatar-profile' src={image} alt='avatar'></img>
+                    }  
+                    <h2>
+                        {props.listedUser.username}
+                    </h2>
+                    <div>
+                        First Name: {props.listedUser.first_name}
                     </div>
-                </form>
+                    <div>
+                        Last Name: {props.listedUser.last_name}
+                    </div>
+                    <div>
+                        Address: {props.listedUser.address}
+                    </div>
+                    <div>
+                        Email Address: {props.listedUser.email}
+                    </div>
+                    <div>
+                        Phone Number: {props.listedUser.phone_number}
+                    </div>
+                </div>
+                <div className='col-4 col-pad'>
+                    <h3 className='review-title'>Leave Review</h3>
+                    <form onSubmit={handleSubmit}>
+                        <div className ="user-details">
+                            <div className="mb-3">
+                                <label htmlFor='username' className="form-label">Content</label>
+                                <input type='text' className='form-control' name='content' value={formValues.content} onChange={handleChange}/>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor='rating' className="form-label">Rating</label>
+                                <br />
+                                <input type='number' name='rating' min='1' max='5' value={formValues.rating} onChange={handleChange}/>
+                            </div>
+                            <button className="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div className='col-2 gutter' />
             </div>
-            <div>
-                {props.reviews.map(review =>{
-                    return (
-                        <>
-                            {review.content}
-                            {review.rating}
-                        </>
-                    )
-                })}
+            <div className='row'>
+                <div className='col-2 gutter' />
+                <div className='col-8'>
+                    {props.reviews &&
+                        <h3>Reviews</h3>
+                    }
+                    {props.reviews.map(review =>{
+                        return (
+                            <>
+                                <hr />
+                                <div className='review'>
+                                    <h5>Review:</h5>
+                                    {review.content}
+                                    <br />
+                                    <br />
+                                    <h5>Rating:</h5>
+                                    {review.rating}/5
+                                </div>
+                            </>
+                        )
+                    })}
+                </div>
+                <div className='col-2 gutter' />
             </div>
         </div>
-    );
-
+    )
 }
 
 export default Profile;

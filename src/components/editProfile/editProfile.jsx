@@ -46,7 +46,7 @@ const EditProfile = (props) => {
                     <div className ='col-6 form-card'>
                         <h1 className ="title">Update Profile</h1>
                         <hr />
-                        <form className = "-container" onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
                             <div className ="user-details">
                                 <div className="mb-3">
                                     <label htmlFor='username' className="form-label">Username</label>

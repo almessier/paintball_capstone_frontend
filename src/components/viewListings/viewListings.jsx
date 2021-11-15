@@ -149,7 +149,7 @@ function ViewListing(props) {
                             <h5>
                                 Username: {props.listedUser.username}
                             </h5>
-                            <button className="btn btn-secondary btn-sm" onClick={event => goToProfilePage(props.listedUser)}>See Profile</button>
+                            <button className="btn btn-secondary btn-sm" onClick={event => goToProfilePage(props.listedUser)}>See Profile and Reviews</button>
                             <br />
                             <br />
                             <div>Address: {props.listedUser.address}</div>
