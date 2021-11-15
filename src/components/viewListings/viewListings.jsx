@@ -5,6 +5,7 @@ import axios from 'axios';
 import QueryString from 'query-string';
 import { useHistory, useLocation } from "react-router-dom";
 import moment from 'moment';
+import './viewListings.css'
 
 
 const mapContainerStyle = {
@@ -144,23 +145,27 @@ function ViewListing(props) {
                 {selected ? (
                     <InfoWindow position={{lat: parseFloat(props.listedUser.lat), lng: parseFloat(props.listedUser.lng)}} onCloseClick={event => setSelected(null)}>
                         <div>
-                            <div>{listing.name}</div>
-                            <div>
-                                {props.listedUser.username}
-                                <button onClick={event => goToProfilePage(props.listedUser)}>See Profile</button>
-                            </div>
-                            <div>{props.listedUser.address}</div>
-                            <div>{moment(listing.start_time.slice(0,5), ['HH:mm']).format('hh:mm A')}</div>
-                            <div>{moment(listing.end_time.slice(0,5), ['HH:mm']).format('hh:mm A')}</div>
-                            <div>{new Date(listing.start_date).toLocaleDateString('en-US', dateOptions)}</div>
-                            
-                            <button onClick={event => goToWeatherPage(props.listedUser, listing)}>Check Weather</button>
+                            <h4>{listing.name}</h4>
+                            <h5>
+                                Username: {props.listedUser.username}
+                            </h5>
+                            <button className="btn btn-secondary btn-sm" onClick={event => goToProfilePage(props.listedUser)}>See Profile</button>
+                            <br />
+                            <br />
+                            <div>Address: {props.listedUser.address}</div>
+                            <div>Start: {moment(listing.start_time.slice(0,5), ['HH:mm']).format('hh:mm A')}</div>
+                            <div>End: {moment(listing.end_time.slice(0,5), ['HH:mm']).format('hh:mm A')}</div>
+                            <div>Date: {new Date(listing.start_date).toLocaleDateString('en-US', dateOptions)}</div>
+                            <br />
+                            <button className="btn btn-secondary btn-sm" onClick={event => goToWeatherPage(props.listedUser, listing)}>Check Weather</button>
+                            <br />
+                            <br />
                             <h5>Price: ${Math.round((listing.price/100), 2)}</h5>
                             <form
                                 action={`http://localhost:8000/api/paintball/checkout/post/${listing.price_id}/`}
                                 method='POST'
                             >
-                                <button className='button' type='submit'>
+                                <button className="btn btn-primary btn-sm" type='submit'>
                                     Pay for Event
                                 </button>
                             </form>
@@ -169,8 +174,8 @@ function ViewListing(props) {
                 ) : null}
 
             </GoogleMap>
-            <button onClick={event => goToCreatePage()}>Create Listing</button>
-            <button onClick={event => deleteListing()}>Delete Listing</button>
+            <button className="btn btn-primary btn-sm create-listing" onClick={event => goToCreatePage()}>Create Listing</button>
+            <button className="btn btn-secondary btn-sm" onClick={event => deleteListing()}>Delete Listing</button>
         </div>
     )
 }
