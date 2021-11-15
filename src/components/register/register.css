@@ -1,1 +1,18 @@
+.row-size-reg {
+  height: 5vh;
+}
 
+.reg-pad {
+  padding-bottom: 20px;
+  padding-top: 15px;
+}
+
+.reg-text {
+  text-align: center;
+  padding-bottom: 12px;
+  padding-top: 15px;
+}
+
+.sub-button-reg {
+  margin-top: 5px;
+}

@@ -23,7 +23,7 @@ const Login = () => {
             <div className='row'>
                 <div className='col-4 gutter' />
                 <div className='col-4 login'>
-                    <h1 className='login-text'>Login</h1>
+                    <h1 className='login-text'>Log In</h1>
                     <form onSubmit={handleSubmit} >
                         <div className="mb-3 username-pad">
                             <label htmlFor="usernameInput" className="form-label">Username</label>
