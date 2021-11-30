@@ -5,6 +5,9 @@ Paintball Meetup Application Front End. Allows users to create an account with a
 ## Tech Stack
 The technologies used in this project are React.js, HTML/CSS, Bootstrap, Axios, Python, Django REST Framework, MySQL, Google Maps API, Stripe API, Stream Chat API, Weather API, and Postman.
 
+## Presentation
+Link to my presentation of this project: https://www.youtube.com/watch?v=3nYi0ktbMKM
+
 ## Map Feature
 ![map](https://github.com/almessier/paintball_capstone_frontend/blob/main/public/images/map.png?raw=true)
 
